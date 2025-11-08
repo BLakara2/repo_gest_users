@@ -1,73 +1,160 @@
-# React + TypeScript + Vite
+# 🚀 User Management App — React + Express + PostgreSQL
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Une application complète de gestion des utilisateurs, construite avec un **frontend moderne React + Material UI (MUI)** et un **backend Express.js** connecté à **PostgreSQL**.  
+Permet d’ajouter, afficher, modifier et supprimer des utilisateurs avec gestion des photos de profil.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🖥️ Aperçu
 
-## React Compiler
+### 🎨 Frontend
+- Développé avec **React + TypeScript + Vite**
+- Design responsive avec **Material UI**
+- Notifications colorées (succès, erreur)
+- Pop-up de modification fluide et esthétique
+- Masonry layout pour une grille propre et dynamique
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### ⚙️ Backend
+- API REST construite avec **Express.js**
+- Connexion à **PostgreSQL**
+- Upload d’images avec **multer**
+- Routes CRUD :
+  - `GET /users` → Récupère tous les utilisateurs  
+  - `POST /users` → Ajoute un utilisateur  
+  - `PUT /users/:id` → Met à jour un utilisateur  
+  - `DELETE /users/:id` → Supprime un utilisateur  
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🧱 Structure du projet
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+📦 user-management-app
+├── backend
+│ ├── server.js
+│ ├── db.js
+│ ├── routes/
+│ │ └── users.js
+│ └── uploads/
+│ └── (photos des utilisateurs)
+│
+├── frontend
+│ ├── src/
+│ │ ├── components/
+│ │ │ ├── UsersList.tsx
+│ │ │ ├── EditUserForm.tsx
+│ │ │ └── ProfileForm.tsx
+│ │ ├── pages/
+│ │ │ └── UsersPage.tsx
+│ │ ├── api/axiosConfig.ts
+│ │ ├── types.ts
+│ │ └── main.tsx
+│ ├── package.json
+│ └── vite.config.ts
+│
+└── README.md
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## ⚡ Installation
+
+### 1️⃣ Cloner le projet
+
+```bash
+  git clone https://github.com/ton-pseudo/user-management-app.git
+  cd user-management-app
+```
+### 2️⃣ Configurer le backend
+
+  ```bash
+    cd backend
+    npm install
+  ```
+  # Créer un fichier .env :
+
+  ```bash
+  PORT=5000
+  DB_HOST=localhost
+  DB_USER=postgres
+  DB_PASSWORD=tonmotdepasse
+  DB_NAME=userdb
+  DB_PORT=5432
+  ```
+
+  # Lancer le serveur :
+
+  ```bash
+    npm start
+  ```
+### 3️⃣ Configurer le frontend
+
+```bash
+cd ../frontend
+npm install
+npm run dev
+```
+Le frontend démarre sur http://localhost:5173
+
+### 🧠 Table PostgreSQL
+  ```sql
+  CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  phone VARCHAR(20),
+  bio TEXT,
+  countrycode VARCHAR(5),
+  photo VARCHAR(255)
+);
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+📸 Fonctionnalités
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+✅ Ajouter un utilisateur
+✅ Modifier via une fenêtre pop-up élégante
+✅ Supprimer un utilisateur avec confirmation
+✅ Notifications automatiques (succès / erreur)
+✅ Upload et affichage de la photo de profil
+✅ Interface fluide et responsive
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+# 🌈 Aperçu visuel
+
+| Liste d’utilisateurs | Formulaire d’ajout | Pop-up de modification |
+|----------------------|--------------------|-------------------------|
+| ![Liste d’utilisateurs](./preview/users-list.png) | ![Formulaire d’ajout](./preview/add-form.png) | ![Pop-up de modification](./preview/edit-popup.png) |
+
+---
+
+## 🛠️ Tech Stack
+
+| Technologie | Rôle |
+|--------------|------|
+| ⚛️ **React + TypeScript** | Frontend |
+| 🎨 **Material UI** | UI / Design |
+| 🧩 **Express.js** | API backend |
+| 🐘 **PostgreSQL** | Base de données |
+| 📦 **Axios** | Requêtes HTTP |
+| 🖼️ **Multer** | Upload d’images |
+
+---
+
+## 💡 Améliorations futures
+
+- 🔒 **Authentification JWT**
+- 🔍 **Recherche et filtrage des utilisateurs**
+- 📄 **Pagination**
+- 👑 **Gestion des rôles (admin, utilisateur)**
+- 🌙 **Dark mode**
+
+---
+
+## 👨‍💻 Auteur
+
+**Bryan Lakara**  
+💌 [lakarabryan@gmail.com](mailto:lakarabryan@gmail.com)
+
+---
+
+### 🪄 Bonus
+
+> Ce projet a été conçu dans un style **pixel art minimaliste**, avec un design responsive et une interface fluide entre les formulaires et les cartes utilisateurs.
